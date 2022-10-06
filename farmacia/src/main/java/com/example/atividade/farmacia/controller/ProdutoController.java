@@ -1,5 +1,6 @@
 package com.example.atividade.farmacia.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +50,11 @@ public class ProdutoController {
 	@GetMapping("/nome/{nome}")
 	public ResponseEntity<List<Produto>> getByNome(@PathVariable String nome) {
 		return ResponseEntity.ok(produtoRepository.findAllByNomeContainingIgnoreCase(nome));
+	}
+	
+	@GetMapping("/preco/{preco}")
+	public ResponseEntity<List<Produto>> getByNome(@PathVariable BigDecimal preco) {
+		return ResponseEntity.ok(produtoRepository.findAllByPreco(preco));
 	}
 
 	@PostMapping
