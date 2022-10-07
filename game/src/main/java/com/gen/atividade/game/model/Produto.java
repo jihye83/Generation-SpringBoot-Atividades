@@ -1,6 +1,7 @@
-package com.example.atividade.farmacia.model;
+package com.gen.atividade.game.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.UpdateTimestamp;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -24,10 +27,10 @@ public class Produto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotBlank(message = "O atributo nome é obrigatório")
-	private String nome;
+	@NotBlank
+	private String nomeProd;
 
-	@NotBlank(message = "O atributo descricao é obrigatório")
+	@NotBlank
 	@Size(min = 5, max = 500)
 	private String descricao;
 
@@ -39,17 +42,12 @@ public class Produto {
 	@Positive(message = "O preço deve ser maior do que zero!")
 	private BigDecimal preco;
 
+	@UpdateTimestamp
+	private LocalDate data;
+
 	@ManyToOne
 	@JsonIgnoreProperties("produto")
 	private Categoria categoria;
-
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
 
 	public Long getId() {
 		return id;
@@ -59,12 +57,12 @@ public class Produto {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getNomeProd() {
+		return nomeProd;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNomeProd(String nomeProd) {
+		this.nomeProd = nomeProd;
 	}
 
 	public String getDescricao() {
@@ -91,4 +89,21 @@ public class Produto {
 		this.preco = preco;
 	}
 
+	public LocalDate getData() {
+		return data;
+	}
+
+	public void setData(LocalDate data) {
+		this.data = data;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+	
 }

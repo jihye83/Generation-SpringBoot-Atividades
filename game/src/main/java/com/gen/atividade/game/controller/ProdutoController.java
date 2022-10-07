@@ -1,6 +1,5 @@
-package com.example.atividade.farmacia.controller;
+package com.gen.atividade.game.controller;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,12 +20,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.example.atividade.farmacia.model.Produto;
-import com.example.atividade.farmacia.repository.CategoriaRepository;
-import com.example.atividade.farmacia.repository.ProdutoRepository;
+import com.gen.atividade.game.model.Produto;
+import com.gen.atividade.game.repository.CategoriaRepository;
+import com.gen.atividade.game.repository.ProdutoRepository;
 
 @RestController
-@RequestMapping("/produtos")
+@RequestMapping("/produto")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProdutoController {
 
@@ -47,14 +46,9 @@ public class ProdutoController {
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 
-	@GetMapping("/nome/{nome}")
-	public ResponseEntity<List<Produto>> getByNome(@PathVariable String nome) {
-		return ResponseEntity.ok(produtoRepository.findAllByNomeContainingIgnoreCase(nome));
-	}
-
-	@GetMapping("/preco/{preco}")
-	public ResponseEntity<List<Produto>> getByNome(@PathVariable BigDecimal preco) {
-		return ResponseEntity.ok(produtoRepository.findAllByPreco(preco));
+	@GetMapping("/nomeProd/{nomeProd}")
+	public ResponseEntity<List<Produto>> getByNome(@PathVariable String nomeProd) {
+		return ResponseEntity.ok(produtoRepository.findAllByNomeProdContainingIgnoreCase(nomeProd));
 	}
 
 	@PostMapping
@@ -63,7 +57,7 @@ public class ProdutoController {
 			return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produto));
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 	}
-
+	
 	@PutMapping
 	public ResponseEntity<Produto> put(@Valid @RequestBody Produto produto) {
 		if (produtoRepository.existsById(produto.getId())) {
