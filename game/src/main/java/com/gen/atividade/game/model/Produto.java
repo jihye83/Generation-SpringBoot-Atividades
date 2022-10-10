@@ -15,6 +15,7 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -48,8 +49,10 @@ public class Produto {
 	private BigDecimal preco;
 
 	@UpdateTimestamp
+	@DateTimeFormat(pattern = "dd/MM/yyyy hh:mm")
 	private LocalDate data;
 
+	
 	@ManyToOne
 	@JsonIgnoreProperties("produto")
 	private Categoria categoria;

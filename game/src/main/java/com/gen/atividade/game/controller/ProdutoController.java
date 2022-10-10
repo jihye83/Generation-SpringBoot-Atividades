@@ -1,5 +1,7 @@
 package com.gen.atividade.game.controller;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,6 +53,21 @@ public class ProdutoController {
 		return ResponseEntity.ok(produtoRepository.findAllByNomeProdContainingIgnoreCase(nomeProd));
 	}
 
+	@GetMapping("/data/{data}")
+	public ResponseEntity<List<Produto>> getByData(@PathVariable LocalDate data){
+	    return ResponseEntity.ok(produtoRepository.findByData(data));
+	}
+	
+	@GetMapping("/preco_maior/{preco}")
+	public ResponseEntity<List<Produto>> getPrecoMaiorQue(@PathVariable BigDecimal preco){
+	    return ResponseEntity.ok(produtoRepository.findByPrecoGreaterThanOrderByPreco(preco));
+	}
+	
+	@GetMapping("/preco_menor/{preco}")
+	public ResponseEntity<List<Produto>> getPrecoMenorQue(@PathVariable BigDecimal preco){
+        return ResponseEntity.ok(produtoRepository.findByPrecoLessThanOrderByPrecoDesc(preco));
+    }
+	
 	@PostMapping
 	public ResponseEntity<Produto> post(@Valid @RequestBody Produto produto) {
 		if (categoriaRepository.existsById(produto.getCategoria().getId()))
