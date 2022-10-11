@@ -48,8 +48,9 @@ public class Produto {
 	@Positive(message = "O preço deve ser maior do que zero!")
 	private BigDecimal preco;
 
+	//definindo padrao da DATA
 	@UpdateTimestamp
-	@DateTimeFormat(pattern = "dd/MM/yyyy hh:mm")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate data;
 
 	

@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -53,8 +54,10 @@ public class ProdutoController {
 		return ResponseEntity.ok(produtoRepository.findAllByNomeProdContainingIgnoreCase(nomeProd));
 	}
 
+	//colocando para buscar pela DATA, @DataTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	//@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@GetMapping("/data/{data}")
-	public ResponseEntity<List<Produto>> getByData(@PathVariable LocalDate data){
+	public ResponseEntity<List<Produto>> getByData(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data){
 	    return ResponseEntity.ok(produtoRepository.findByData(data));
 	}
 	
